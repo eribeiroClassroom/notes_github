@@ -53,7 +53,7 @@ The next step is to use `gh` to set the authentication credentials and test to s
 
 The blog by Michael England in the linked listed above suggests that we use `SSH` for authentication. Instead, I decided to use `HTTPS` , pasted my GitHub Token when prompted. I guess the GitHub token encodes my username information because the authentication process did not ask me for my username, and just logged me directly. My steps are as follows: 
 
-![image.png](Previous%20notes%20on%20creating%20a%20new%20container%20from%20th%20110dcb63603a80a8ac08d4ce3828c0fe/image.png)
+![image.png](figs/image.png)
 
 Once `gh` authentication is done, you should be able to clone repositories and perform other tasks such as `git add`, `git commit` and `git push` without many problems. 
 
@@ -61,11 +61,11 @@ Once `gh` authentication is done, you should be able to clone repositories and p
 
 Go to the URL of the repository you want to clone and copy one of the commands for cloning the repository. The command used in the following figure uses the GitHub CLI tool: 
 
-![image-20241023143314815](/Users/eribeiro/Library/CloudStorage/GoogleDrive-eribeirofit@gmail.com/My Drive/teaching/cse4001/96c2a90f-7b60-4005-bc44-6c2756c09979_Export-cda719cd-435e-4d16-a4e2-3f27f61986c1/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe.png)
+![image-20241023143314815](figs/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe.png)
 
 Copy that command line and run it on the linux terminal of the docker container inside the `/root/workspace/`directory. See figure below:
 
-![image-20241023143726309](/Users/eribeiro/Library/Application Support/typora-user-images/image-20241023143726309.png)
+![image-20241023143726309](figs/image-20241023143726309.png)
 
 Once the repository is cloned, there are only three git commands that you need to do to submit your assignments. They are: 
 
@@ -78,7 +78,7 @@ The `status` is a list of the changes that were made and describes the current s
 
 ## Add a new file and check status
 
-![image-20241023144713270](/Users/eribeiro/Library/CloudStorage/GoogleDrive-eribeirofit@gmail.com/My Drive/teaching/cse4001/96c2a90f-7b60-4005-bc44-6c2756c09979_Export-cda719cd-435e-4d16-a4e2-3f27f61986c1/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe/image-20241023144713270.png)
+![image-20241023144713270](figs/image-20241023144713270.png)
 
 Checking the status helps us see what changes need to go into source control. The message tells us to run `git add` to include the file into Git. 
 
@@ -86,13 +86,13 @@ Checking the status helps us see what changes need to go into source control. Th
 
 I will add, commit, and push, i.e.: 
 
-![image-20241023145138702](/Users/eribeiro/Library/CloudStorage/GoogleDrive-eribeirofit@gmail.com/My Drive/teaching/cse4001/96c2a90f-7b60-4005-bc44-6c2756c09979_Export-cda719cd-435e-4d16-a4e2-3f27f61986c1/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe/image-20241023145138702.png)
+![image-20241023145138702](figs/image-20241023145138702.png)
 
 Of course, we don't need to call `git status` every time we change something or do something. I did that here to show the different states of the source control after each step was completed. Also, git can save the authentication credentials to avoid entering them every time we push something to the server. But, this time my system asked for the username and password. The username is the same git username and the password I use is the personal GitHub Token that I simply paste on the password prompt (I keep it in a file on the computer).
 
 To see the changes on the server, we can re-load the repository URL and the changes should be there, i.e.: 
 
-![image-20241023145556956](/Users/eribeiro/Library/CloudStorage/GoogleDrive-eribeirofit@gmail.com/My Drive/teaching/cse4001/96c2a90f-7b60-4005-bc44-6c2756c09979_Export-cda719cd-435e-4d16-a4e2-3f27f61986c1/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe/image-20241023145556956.png)
+![image-20241023145556956](figs/image-20241023145556956.png)
 
 See the last file on the list shown in the above figure. 
 
