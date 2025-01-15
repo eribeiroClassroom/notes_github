@@ -61,7 +61,7 @@ Once `gh` authentication is done, you should be able to clone repositories and p
 
 Go to the URL of the repository you want to clone and copy one of the commands for cloning the repository. The command used in the following figure uses the GitHub CLI tool: 
 
-![image-20241023143314815](figs/Previous notes on creating a new container from th 110dcb63603a80a8ac08d4ce3828c0fe.png)
+![image-20241023143314815](figs/clone.png)
 
 Copy that command line and run it on the linux terminal of the docker container inside the `/root/workspace/`directory. See figure below:
 
