@@ -1,16 +1,24 @@
-# Notes on using GitHub for submitting assignments
+# Notes on using GitHub for submitting assignments for CSE4001
 
 
 
 ## Install the GitHub Command Line Interface (CLI)
 
-The installation will be done on the Linux on the CSE4001 Docker container. I tried to use the package manager (e.g.,  `brew`) instructions provided by the github page but they did not work because, in my case, the package manager couldn’t find the package `gh` . To install `gh`, I followed the instructions from this page: [https://github.com/cli/cli/blob/trunk/docs/install_linux.md](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). Specifically, I used the instructions for `Ubuntu Linux`. But the instructions use `sudo` to execute the installation commands with admin rights. Our `CSE4001` container does not need/use `sudo`. So, I removed the `sudo` keyword from the installation line before using it, i.e.: 
+The GitHub CLI installation will be done on the Linux in the CSE4001 Docker container. The goal is to run most assignment-related commands and steps from inside the CSE4001 docker container. 
+
+To install the GitHUb CLI, I tried to use the package manager (e.g.,  `brew`) instructions provided by the GitHub page but the instructions did not work for me because the package manager couldn’t find the package `gh`. 
+
+Instead, I installed `gh` by followed the instructions from the following page: 
+
+[https://github.com/cli/cli/blob/trunk/docs/install_linux.md](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). 
+
+Specifically, I followed the instructions for `Debian, Ubuntu Linux, Raspberry Pi OS (apt)`. Here, we need to remove the `sudo` at the start of the instruction. We use `sudo` when we want to execute commands with admin rights. However, this is not needed for the `CSE4001`. So, the `sudo` keyword needs to be removed from the installation line before using it, i.e.: 
 
 ```bash
 (type -p wget >/dev/null || (apt update && apt-get install wget -y)) &&  mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && apt update && apt install gh -y
 ```
 
-When copying this line, make sure it is a single-line command instead of one with line breaks. The output I got once I executed the command is as follows: 
+When copying/pasting this line to your command line, make sure it is a single-line command (i.e., line breaks). The command's expected output is:
 
 ```bash
 Hit:1 https://cli.github.com/packages stable InRelease
@@ -47,38 +55,55 @@ Setting up gh (2.57.0) ...
 root@f8b82b3921e6:~/workspace/test_os161#
 ```
 
-The next step is to use `gh` to set the authentication credentials and test to see if it is working properly. A good blog on using GitHub CLI `gh` is here: 
+## Authenticate using github credentials or access token
+The next step is to use `gh` to set the authentication credentials and test to see if it is working properly. This step is described well in the following blog post by Michael England on using GitHub CLI `gh`: 
 
 - https://micheal.dev/blog/ghcli-1-installing-and-authorizing-the-githubcli/
 
-The blog by Michael England in the linked listed above suggests that we use `SSH` for authentication. Instead, I decided to use `HTTPS` , pasted my GitHub Token when prompted. I guess the GitHub token encodes my username information because the authentication process did not ask me for my username, and just logged me directly. My steps are as follows: 
+The blog suggests the use of `SSH` for authentication. While `SSH` should work just fine, I decided to use `HTTPS`, and pasted my GitHub Token when prompted. The GitHub token seems to encode my username information because the authentication process did not ask me for my username, and just logged me directly. See steps below:
 
-![image.png](figs/image.png)
+![image.png](figs/auth.png)
 
-Once `gh` authentication is done, you should be able to clone repositories and perform other tasks such as `git add`, `git commit` and `git push` without many problems. 
+Once `gh` authentication is done, we can clone repositories and perform other tasks such as `git add`, `git commit` and `git push`. 
 
-## Clone an assignment (repository)
+## Sequence of steps for working on CSE4001 assignments
 
-Go to the URL of the repository you want to clone and copy one of the commands for cloning the repository. The command used in the following figure uses the GitHub CLI tool: 
+Assignments in CSE4001 will be submitted via GitHub Classroom. Once the assignment invitation is accepted, a private repository for the assignment is created using the student username. The repository will contain the description of the assignment and code or files that are needed to start the assignment. The main steps to work on assignments are: 
 
-![image-20241023143314815](figs/clone.png)
+1. Accept the assignment invitation.
+2. Open the URL of the assignment repository, and copy the `gh` cloning command (or the repository URL, if cloning using `git clone` instead of `gh repo clone`).
+3. In the CSE4001 container, go to `/root/workspace/`, and from there clone the assignment repository. Do not `git fork` or `download` the repository. You must clone it. 
+4. Edit the code, add files, and complete the assignment. Test the assignment to make sure it works as expected. 
+5. As you work on the assignment, commit your changes often (e.g., once you take a break from working or every hour). The commits will save the history of changes locally. If something happens or breaks, and you cannot fix the issue, you can  reverse the changes to a previous point where things were working. 
+6. You can check the status of the repository by running `git status`. 
+7. Finally, once the assignment is completed, you will `commit` and `push` the changes to the assignment repository in the GitHub's server. 
 
-Copy that command line and run it on the linux terminal of the docker container inside the `/root/workspace/`directory. See figure below:
-
-![image-20241023143726309](figs/image-20241023143726309.png)
-
-Once the repository is cloned, there are only three git commands that you need to do to submit your assignments. They are: 
+In general, once the repository is cloned, there are only four git commands that you will use to submit your assignments. They are: 
 
 - `git status`
 - `git add .`
 - `git commit -am "some message describing the changes made to the code."`
 - `git push`
 
-The `status` is a list of the changes that were made and describes the current state of the source control for the repository. The option `add .` adds new files to git. The `commit` action updates the state of the source control. Until this point, all changes are local and are not on the GitHub server. As a result, these steps are not sufficient for submission. The final step, i.e., `push` transfers all the local changes to the remote server. Only now, the submission was completed. In the next example, I will add a new file to the repository, check the status of the repository, commit the changes locally, and finally submit the changes to the server. 
+The `status` is a list of the changes that were made and describes the current state of the source control for the repository. The option `add .` adds new files to git. The `commit` action updates the state of the source control. Until this point, all changes are local and are not on the GitHub server. As a result, these steps are not sufficient for submission. The final step, i.e., `push` transfers all the local changes to the remote server. Only after `push`, the submission is completed. 
+
+In the next example, I will add a new file to the repository, check the status of the repository, commit the changes locally, and finally submit the changes to the server. 
+
+
+## Clone an assignment (repository)
+
+Go to the URL of the repository you want to clone and copy one of the commands for cloning the repository. The command used in the following figure uses the GitHub CLI tool: 
+
+![](figs/clone.png)
+
+Copy that command line and run it on the linux terminal of the docker container inside the `/root/workspace/`directory. See figure below:
+
+![](figs/example_cloning.jpg)
+
 
 ## Add a new file and check status
 
-![image-20241023144713270](figs/image-20241023144713270.png)
+![](figs/example_addfile.jpg)
 
 Checking the status helps us see what changes need to go into source control. The message tells us to run `git add` to include the file into Git. 
 
@@ -86,17 +111,23 @@ Checking the status helps us see what changes need to go into source control. Th
 
 I will add, commit, and push, i.e.: 
 
-![image-20241023145138702](figs/image-20241023145138702.png)
+![](figs/example_push.jpg)
 
 Of course, we don't need to call `git status` every time we change something or do something. I did that here to show the different states of the source control after each step was completed. Also, git can save the authentication credentials to avoid entering them every time we push something to the server. But, this time my system asked for the username and password. The username is the same git username and the password I use is the personal GitHub Token that I simply paste on the password prompt (I keep it in a file on the computer).
 
 To see the changes on the server, we can re-load the repository URL and the changes should be there, i.e.: 
 
-![image-20241023145556956](figs/image-20241023145556956.png)
+![](figs/example_finalview.jpg)
 
-See the last file on the list shown in the above figure. 
+See the last file on the list in the above figure. 
 
-## Clone the new version and test it to make sure it works
+## (Re-)clone the new version and test it again to make sure it works
 
-Just seeing the changes does not guarantee that you submitted the whole thing properly. You might have forgotten to add some files or something else might be missing. To check the submission, you should create a temporary repository inside your local `/root/workspace/` and, from that directory, clone the newly pushed repository, and then run the program to make sure it is complete and runs as expected. If it does then at least you know what you have on your submission works the same as the version on your own computer. 
+Some assignments will have automated test scripts (i.e., autograding) that will execute everytime changes are pushed to the repository. These tests help show that the submission seems to be correct. But, sometimes the automated tests are not available for the assignment. 
+
+> Then, how do we know if the submission that has been `pushed` to the repository on the GitHub server works the same as the local copy? 
+
+**Re-clone it and test on a temp directory**. One way that I think it works well for checking if the files on the GitHub works just like the local copy is to re-clone the repository into a temporary directory and run the program from there. 
+
+Just seeing the changes does not guarantee that we submitted all files. We might have forgotten to add some files or something else might be missing. To check the submission, we can create a temporary directory inside your local `/root/workspace/` and, from that directory, (re-)clone the newly pushed repository, and then execute the program to make sure it is complete and runs as expected. If it does then at least we know that the program on the server works the same as the version on our personal computer. 
 
