@@ -89,8 +89,9 @@ The `status` is a list of the changes that were made and describes the current s
 
 In the next example, I will add a new file to the repository, check the status of the repository, commit the changes locally, and finally submit the changes to the server. 
 
+## Example
 
-## Clone an assignment (repository)
+### Clone an assignment (repository)
 
 Go to the URL of the repository you want to clone and copy one of the commands for cloning the repository. The command used in the following figure uses the GitHub CLI tool: 
 
@@ -101,13 +102,13 @@ Copy that command line and run it on the linux terminal of the docker container 
 ![](figs/example_cloning.jpg)
 
 
-## Add a new file and check status
+### Add a new file and check status
 
 ![](figs/example_addfile.jpg)
 
 Checking the status helps us see what changes need to go into source control. The message tells us to run `git add` to include the file into Git. 
 
-## Commit and push
+### Commit and push
 
 I will add, commit, and push, i.e.: 
 
@@ -121,7 +122,7 @@ To see the changes on the server, we can re-load the repository URL and the chan
 
 See the last file on the list in the above figure. 
 
-## (Re-)clone the new version and test it again to make sure it works
+### (Re-)clone the new version and test it again to make sure it works
 
 Some assignments will have automated test scripts (i.e., autograding) that will execute everytime changes are pushed to the repository. These tests help show that the submission seems to be correct. But, sometimes the automated tests are not available for the assignment. 
 
